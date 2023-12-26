@@ -1,6 +1,12 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
+mod model;
+mod fine_tuning;
+mod dataset;
+mod utils;
+
+pub use model::{Model, GPT4};
+pub use fine_tuning::{FineTune, FineTunePrompt};
+pub use dataset::Dataset;
+pub use utils::*;
 
 #[cfg(test)]
 mod tests {
@@ -8,7 +14,10 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+        let model = GPT4 {};
+        let prompt = "Hello, world!";
+        let response = model.generate(prompt, 10, 0.7);
+        println!("response: {}", response);
+        assert!(response.len() > 0);
     }
 }
